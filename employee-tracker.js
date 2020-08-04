@@ -186,3 +186,41 @@ function addDepartment() {
         });
 }
 
+// Allows user to ADD NEW ROLE
+function addRole() {
+    inquirer
+        .prompt([
+            {
+                type: "input",
+                message: "Enter employee title",
+                name: "addtitle"
+            },
+            {
+                type: "input",
+                message: "Enter employee salary",
+                name: "addsalary"
+            },
+            {
+                type: "input",
+                message: "Enter employee department id",
+                name: "addDepId"
+            }
+        ])
+        .then(function (answer) {
+            connection.query(
+                "INSERT INTO role SET ?",
+                {
+                    title: answer.addtitle,
+                    salary: answer.addsalary,
+                    department_id: answer.addDepId
+                },
+                function (err, answer) {
+                    if (err) {
+                        throw err;
+                    }
+                    console.table(answer);
+                }
+            );
+            askQuestion();
+        });
+}
