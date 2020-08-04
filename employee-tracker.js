@@ -117,3 +117,47 @@ function addEmployee() {
             askQuestion();
         });
 }
+// Retrives all employees (id, first name, last name) and then allows user to SELECT EMPLOYEE to UPDATE ROLE
+
+function updateEmpRole() {
+    let allemp = [];
+    connection.query("SELECT * FROM employee", function (err, answer) {
+        for (let i = 0; i < answer.length; i++) {
+            let employeeString =
+                answer[i].id + " " + answer[i].first_name + " " + answer[i].last_name;
+            allemp.push(employeeString);
+        }
+        inquirer
+            .prompt([
+                {
+                    type: "list",
+                    name: "updateEmpRole",
+                    message: "Select employee to update role",
+                    choices: allemp
+                },
+                {
+                    type: "list",
+                    message: "select new role",
+                    choices: ["Manager", "Employee"],
+                    name: "newrole"
+                }
+            ])
+            .then(function (answer) {
+                console.log("about to update", answer);
+                const idToUpdate = {};
+                idToUpdate.employeeId = parseInt(answer.updateEmpRole.split(" ")[0]);
+                if (answer.newrole === "manager") {
+                    idToUpdate.role_id = 1;
+                } else if (answer.newrole === "employee") {
+                    idToUpdate.role_id = 2;
+                }
+                connection.query(
+                    "UPDATE employee SET role_id = ? WHERE id = ?",
+                    [idToUpdate.role_id, idToUpdate.employeeId],
+                    function (err, data) {
+                        askQuestion();
+                    }
+                );
+            });
+    });
+}
