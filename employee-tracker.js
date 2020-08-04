@@ -1,0 +1,58 @@
+// Dependencies
+const connection = require("./Assets/db.js");
+const inquirer = require("inquirer");
+const cTable = require("console.table");
+const mysql = require("mysql");
+// Inquirer prompt
+const askQuestion= function () {
+    inquirer
+        .prompt({
+            type: "list",
+            name: "startQuestion",
+            message: "Please use the arrow keys to select an option?",
+            choices: [
+                "View all employees",
+                "View all roles",
+                "View all departments",
+                "Add employee",
+                "Add department",
+                "Add role",
+                "Update employee role",
+                "Remove employee"
+            ]
+        })
+        .then(function (answer) {
+            console.log(answer);
+            // Here is the start of the switch statment for user choice
+            switch (answer.startQuestion) {
+                case "View all employees":
+                    viewallemployees();
+                    break;
+
+                case "View all roles":
+                    viewallroles();
+                    break;
+
+                case "View all departments":
+                    viewalldepartments();
+                    break;
+
+                case "Add employee":
+                    addEmployee();
+                    break;
+
+                case "Update employee role":
+                    updateEmpRole();
+                    break;
+
+                case "Add department":
+                    addDepartment();
+                    break;
+
+                case "Add role":
+                    addRole();
+                    break;
+            }
+        });
+};
+askQuestion();
