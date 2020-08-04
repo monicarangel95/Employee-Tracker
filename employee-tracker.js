@@ -56,10 +56,18 @@ const askQuestion = function () {
         });
 };
 askQuestion();
-// allows user to view all departments currently in the database
+// Allows user to view all departments currently in the database
 function viewalldepartments() {
     connection.query("SELECT * FROM department", function (err, answer) {
         console.log("\n Departments Retrieved from Database \n");
+        console.table(answer);
+    });
+    askQuestion();
+}
+// Allows user to view all employee roles currently in the database
+function viewallroles() {
+    connection.query("SELECT * FROM role", function (err, answer) {
+        console.log("\n Roles Retrieved from Database \n");
         console.table(answer);
     });
     askQuestion();
