@@ -4,7 +4,7 @@ const inquirer = require("inquirer");
 const cTable = require("console.table");
 const mysql = require("mysql");
 // Inquirer prompt
-const askQuestion= function () {
+const askQuestion = function () {
     inquirer
         .prompt({
             type: "list",
@@ -56,3 +56,11 @@ const askQuestion= function () {
         });
 };
 askQuestion();
+// allows user to view all departments currently in the database
+function viewalldepartments() {
+    connection.query("SELECT * FROM department", function (err, answer) {
+        console.log("\n Departments Retrieved from Database \n");
+        console.table(answer);
+    });
+    askQuestion();
+}
