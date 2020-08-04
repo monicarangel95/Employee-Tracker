@@ -2,9 +2,9 @@
   "name": "hmw-12-mysql",
   "version": "1.0.0",
   "description": "Architect and build a solution for managing a company's employees using node, inquirer, and MySQL.",
-  "main": "db.js",
+  "main": "employee-tracker.js",
   "scripts": {
-    "test": "db.js"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
@@ -20,5 +20,6 @@
     "console.table": "^0.10.0",
     "inquirer": "^7.3.3",
     "mysql": "^2.18.1"
+
   }
 }
