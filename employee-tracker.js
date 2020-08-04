@@ -161,3 +161,28 @@ function updateEmpRole() {
             });
     });
 }
+// Allows user to ADD NEW DEPARTMENT into the database
+function addDepartment() {
+    inquirer
+        .prompt({
+            type: "input",
+            message: "Enter new department name",
+            name: "dept"
+        })
+        .then(function (answer) {
+            connection.query(
+                "INSERT INTO department SET ?",
+                {
+                    name: answer.dept
+                },
+                function (err, answer) {
+                    if (err) {
+                        throw err;
+                    }
+                }
+            ),
+                console.table(answer);
+            askQuestion();
+        });
+}
+
