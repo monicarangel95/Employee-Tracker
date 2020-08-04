@@ -83,3 +83,37 @@ function viewallemployees() {
     });
     askQuestion();
 }
+// Allows user to ADD NEW EMPLOYEES to the database
+function addEmployee() {
+    inquirer
+        .prompt([
+            {
+                type: "input",
+                message: "Please enter employee first name",
+                name: "firstname"
+            },
+            {
+                type: "input",
+                message: "Please enter employee last name",
+                name: "lastname"
+            }
+        ])
+        .then(function (answer) {
+            connection.query(
+                "INSERT INTO employee SET ?",
+                {
+                    first_name: answer.firstname,
+                    last_name: answer.lastname,
+                    role_id: null,
+                    manager_id: null
+                },
+                function (err, answer) {
+                    if (err) {
+                        throw err;
+                    }
+                    console.table(answer);
+                }
+            );
+            askQuestion();
+        });
+}
